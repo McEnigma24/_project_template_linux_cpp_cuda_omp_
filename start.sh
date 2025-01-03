@@ -10,14 +10,16 @@ dir_run_time_config="run_time_config"
 SCRIPT="./run.sh"
 LOG="../output/start.log"
 
+silent_come_back() { cd - > /dev/null; }
+
 clear_file() { if [ -f $1 ]; then rm -rf $1; fi; }
-clear_file_nested() { cd $1; clear_file "$2"; cd - > /dev/null; }
+clear_file_nested() { cd $1; clear_file "$2"; silent_come_back; }
 
 clear_dir() { if [ -d $1 ]; then rm -rf $1; fi; mkdir $1; }
-clear_dir_nested() { cd $1; clear_dir "$2"; cd - > /dev/null; }
+clear_dir_nested() { cd $1; clear_dir "$2"; silent_come_back; }
 
 create_dir() { if [ ! -d $1 ]; then mkdir $1; fi; }
-create_dir_nested() { cd $1; create_dir "$2"; cd - > /dev/null; }
+create_dir_nested() { cd $1; create_dir "$2"; silent_come_back; }
 
 timer_start() { var_start=$(date +%s); }
 timer_end() { var_end=$(date +%s); }
