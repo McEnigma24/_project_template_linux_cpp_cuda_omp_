@@ -32,6 +32,52 @@ timer_print()
     seconds=$((elapsed % 60))
     printf "Program          - took: %02d:%02d:%02d\n" $hours $minutes $seconds
 }
+install_packages()
+{
+    # Funkcja sprawdzająca czy pakiet jest zainstalowany
+    check_and_install()
+    {
+        PACKAGE=$1
+        if ! dpkg-query -W -f='${Status}' "$PACKAGE" 2>/dev/null | grep "install ok installed" > /dev/null; then
+            echo "$PACKAGE is not installed. Installing..."
+
+            sudo apt install -y "$PACKAGE"
+
+            if [ $? -eq 0 ]; then
+                echo ""
+            else
+                echo -e "\nstart_all.sh - ERROR - unable to install this package: $PACKAGE\n"
+                exit
+            fi
+        fi
+    }
+
+    # Lista pakietów do zainstalowania
+    PACKAGES=(
+        tar
+        make
+        cmake
+        build-essential
+        gcc
+        g++
+        libstdc++-11-dev
+        gcc-multilib
+        g++-multilib        
+    )
+
+    # Aktualizacja listy pakietów
+    sudo apt update -y > /dev/null 2>&1 && sudo apt upgrade -y > /dev/null 2>&1
+
+    # Sprawdzanie i instalowanie każdego pakietu
+    for PACKAGE in "${PACKAGES[@]}"; do
+        check_and_install "$PACKAGE"
+    done
+
+
+    echo -ne "\n\n"
+    echo "Instalation completed"
+    echo -ne "\n\n"
+}
 env_prep()
 {
     create_dir "$dir_input"
@@ -47,6 +93,8 @@ env_prep()
 }
 
 #####################   START   #####################
+
+install_packages
 
 env_prep
 
