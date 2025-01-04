@@ -38,4 +38,5 @@ std::string calculate_time_difference()
 }
 
 #define time_stamp(x) std::cout << "\nTIME_STAMP: " << x << " " << get_current_local_time() << " (+ " << calculate_time_difference() << ")\n";
+#define time_stamp_reset() calculate_time_difference();
 // #define time_stamp(x) 
