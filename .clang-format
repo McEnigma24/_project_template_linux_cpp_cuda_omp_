@@ -1,7 +1,7 @@
 ---
 Language:        Cpp
 
-# SpacesBeforeTrailingComments: 1
+SpacesBeforeTrailingComments: 10
 IndentWidth:     4
 
 BreakBeforeBraces: Custom
