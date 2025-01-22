@@ -1,10 +1,14 @@
 #include "__preprocessor__.h"
 #include "time_stamp.h"
 
-namespace TESTING {}
+namespace TESTING
+{
+}
 
-class Test {
-    Test() {
+class Test
+{
+    Test()
+    {
         cout << "Test creation" << endl;
         cout << "next line\n";
     }
@@ -13,10 +17,12 @@ class Test {
 // COmment check
 void func() { cout << "test" << endl; }
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     time_stamp("It just works");
 
-    if (true) {
+    if (true)
+    {
         cout << "test" << endl;
     }
 
