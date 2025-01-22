@@ -1,6 +1,6 @@
 ---
 Language:        Cpp
-# BasedOnStyle:  LLVM
+
 SpacesBeforeTrailingComments: 1
 BreakBeforeBraces: Custom
 BraceWrapping:
