@@ -1,4 +1,4 @@
-# in file put // clang-format off \n code... \n // clang-format on
+# to not allow modyfication in file put // clang-format off \n code... \n // clang-format on
 ---
 Language:        Cpp
 

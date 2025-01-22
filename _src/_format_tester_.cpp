@@ -32,9 +32,13 @@ enum TestEnum
     Value1,
     Value2
 };
-// clang-format off
-void freeFunction() { std::cout << "Free 1 function" << std::endl; std::cout << "Free 2 function" << std::endl; }
-// clang-format on
+
+void freeFunction()
+{
+    std::cout << "Free 1 function" << std::endl;
+    std::cout << "Free 2 function" << std::endl;
+}
+
 int main_test()
 {
     TestNamespace::namespaceFunction();
