@@ -5,6 +5,7 @@ Language:        Cpp
 IndentWidth:     4
 NamespaceIndentation: All
 AllowShortFunctionsOnASingleLine: All
+DisableFormat: true
 
 BreakBeforeBraces: Custom
 BraceWrapping:
