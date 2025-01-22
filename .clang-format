@@ -4,7 +4,7 @@ Language:        Cpp
 SpacesBeforeTrailingComments: 1
 BreakBeforeBraces: GNU
 IndentWidth:     4
-
+...
 
 # AccessModifierOffset: -2
 # AlignAfterOpenBracket: Align
