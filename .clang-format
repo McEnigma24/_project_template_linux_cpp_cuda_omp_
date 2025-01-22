@@ -1,3 +1,5 @@
+# See all available options   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
 # to not allow modyfication in file put // clang-format off \n code... \n // clang-format on
 ---
 Language:        Cpp
