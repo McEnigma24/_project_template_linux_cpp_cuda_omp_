@@ -3,7 +3,11 @@
 
 class Test
 {
-    Test() { cout << "Test creation" << endl; }
+    Test()
+    {
+        cout << "Test creation" << endl;
+        cout << "next line\n";
+    }
 };
 
 void func() { cout << "test" << endl; }
