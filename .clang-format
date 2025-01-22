@@ -4,8 +4,8 @@ Language:        Cpp
 SpacesBeforeTrailingComments: 1
 BreakBeforeBraces: Custom
 BraceWrapping:
-  AfterCaseLabel:  false
-  AfterClass:      false
+  AfterCaseLabel:  true
+  AfterClass:      true
   AfterControlStatement: true
   AfterEnum:       true
   AfterFunction:   true

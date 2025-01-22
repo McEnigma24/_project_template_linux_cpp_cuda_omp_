@@ -1,7 +1,8 @@
 #include "__preprocessor__.h"
 #include "time_stamp.h"
 
-class Test {
+class Test
+{
     Test()
     {
         cout << "Test creation" << endl;
