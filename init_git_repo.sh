@@ -1,5 +1,14 @@
 #!/bin/bash
 
+install_hook()
+{
+    DIR_SCRIPTS="scripts"
+    PATH_MY_HOOK="$scripts/formating_hook.sh"
+    PATH_GIT_HOOK=".git/hooks/pre-commit"
+
+    mv $PATH_HOOK $PATH_GIT_HOOK && chmod +x $PATH_GIT_HOOK
+}
+
 user_name="McEnigma24"
 
 repo_name="$(basename "`pwd`")"
@@ -45,6 +54,8 @@ git remote set-url origin git@github.com:$user_name/$repo_name.git
 
 git branch -M main
 git push -u origin main
+
+install_hook # my addition
 
 rm -f "$0"
 ./push.sh
