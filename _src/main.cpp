@@ -15,6 +15,7 @@ class Test
     }
 };
 
+// COmment check
 void func() { cout << "test" << endl; }
 
 int main(int argc, char *argv[])
