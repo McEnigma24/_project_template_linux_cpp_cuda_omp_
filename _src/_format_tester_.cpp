@@ -33,7 +33,7 @@ enum TestEnum
     Value2
 };
 
-void freeFunction()
+inline void freeFunction()
 {
     std::cout << "Free 1 function" << std::endl;
     std::cout << "Free 2 function" << std::endl;
