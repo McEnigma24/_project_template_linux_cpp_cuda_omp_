@@ -1,15 +1,13 @@
 #!/bin/bash
 
-# Znajdź zmienione pliki w stage (dodane lub zmodyfikowane), które są plikami C, CPP, H, HPP
+# FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(c|cpp)$') # Nokia
 FILES=$(git diff --cached --name-only --diff-filter=ACM | grep -E '\.(c|cpp|h|hpp)$')
 
-# Jeśli nie znaleziono plików, zakończ skrypt
 if [ -z "$FILES" ]; then
     echo "Brak plików do formatowania."
     exit 0
 fi
 
-# Formatowanie zmienionych plików
 echo "Formatowanie zmienionych plików za pomocą ClangFormat..."
 for FILE in $FILES; do
     echo "$FILE"
