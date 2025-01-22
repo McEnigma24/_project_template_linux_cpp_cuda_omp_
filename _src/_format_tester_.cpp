@@ -2,10 +2,10 @@
 
 namespace TestNamespace
 {
-void namespaceFunction()
-{
-    std::cout << "Inside namespace function" << std::endl;
-}
+    void namespaceFunction()
+    {
+        std::cout << "Inside namespace function" << std::endl;
+    }
 } // namespace TestNamespace
 
 class TestClass

@@ -2,6 +2,7 @@
 Language:        Cpp
 
 IndentWidth:     4
+NamespaceIndentation: All
 
 BreakBeforeBraces: Custom
 BraceWrapping:
