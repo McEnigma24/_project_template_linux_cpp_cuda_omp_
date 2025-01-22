@@ -6,7 +6,7 @@ install_hook()
     PATH_MY_HOOK="$DIR_SCRIPTS/formating_hook.sh"
     PATH_GIT_HOOK=".git/hooks/pre-commit"
 
-    cp $PATH_HOOK $PATH_GIT_HOOK
+    cp $PATH_MY_HOOK $PATH_GIT_HOOK
     chmod +x $PATH_GIT_HOOK
 }
 
