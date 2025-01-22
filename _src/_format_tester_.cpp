@@ -1,5 +1,10 @@
 #include <iostream>
 
+#define MACRO_ONE_LINE(x) std::cout << #x << " = " << x << "\n"
+#define MACRO_MULTI_LINE(x)                                                    \
+    std::cout << #x << " = " << x;                                             \
+    std::cout << "\n"
+
 namespace TestNamespace
 {
     void namespaceFunction()
