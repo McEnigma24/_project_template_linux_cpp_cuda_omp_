@@ -2,6 +2,8 @@
 Language:        Cpp
 
 SpacesBeforeTrailingComments: 1
+IndentWidth:     4
+
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel:  true
@@ -22,7 +24,6 @@ BraceWrapping:
   SplitEmptyFunction: true
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
-IndentWidth:     4
 ...
 
 # AccessModifierOffset: -2
