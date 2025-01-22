@@ -1,3 +1,4 @@
+# in file put // clang-format off \n code... \n // clang-format on
 ---
 Language:        Cpp
 
