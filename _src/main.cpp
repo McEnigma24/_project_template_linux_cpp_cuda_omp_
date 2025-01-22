@@ -1,8 +1,7 @@
 #include "__preprocessor__.h"
 #include "time_stamp.h"
 
-class Test
-{
+class Test {
     Test()
     {
         cout << "Test creation" << endl;
@@ -17,9 +16,9 @@ int main(int argc, char *argv[])
     time_stamp("It just works");
 
     if (true)
-        {
-            cout << "test" << endl;
-        }
+    {
+        cout << "test" << endl;
+    }
 
     return 0;
 }
