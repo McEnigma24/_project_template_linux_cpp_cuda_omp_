@@ -1,6 +1,3 @@
-# See all available options   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
-
-# to not allow modyfication in file put // clang-format off \n code... \n // clang-format on
 ---
 Language:        Cpp
 
@@ -30,6 +27,12 @@ BraceWrapping:
   SplitEmptyRecord: true
   SplitEmptyNamespace: true
 ...
+
+# See all available options   https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+# to not allow modyfication in file put // clang-format off \n code... \n // clang-format on
+
+
 
 # SpacesBeforeTrailingComments: 1
 # AccessModifierOffset: -2
