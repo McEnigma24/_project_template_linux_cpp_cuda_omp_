@@ -5,7 +5,11 @@
     std::cout << #x << " = " << x;                                             \
     std::cout << "\n"
 
-namespace TestNamespace{    void namespaceFunction()    {             std::cout << "Inside namespace function" << std::endl;
+namespace TestNamespace
+{
+    void namespaceFunction()
+    {
+        std::cout << "Inside namespace function" << std::endl;
     }
 } // namespace TestNamespace
 
