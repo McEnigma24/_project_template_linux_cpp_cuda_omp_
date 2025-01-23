@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$(basename "`pwd`")" == "_project_template_" ]; then
+if [ "$(basename "`pwd`")" == "_project_template_linux_cpp_" ]; then
 
     if [ -n "$1" ]; then
         mkdir ../$1
@@ -20,5 +20,5 @@ if [ "$(basename "`pwd`")" == "_project_template_" ]; then
         echo "no argument supplied"
     fi
 else
-    echo "wrong directory - cd _project_template_"
+    echo "wrong directory - cd _project_template_linux_cpp_"
 fi
