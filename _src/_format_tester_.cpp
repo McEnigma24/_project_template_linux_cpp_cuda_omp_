@@ -12,7 +12,6 @@ namespace TestNamespace
         std::cout << "Inside namespace function" << std::endl;
     }
 } // namespace TestNamespace
-
 class TestClass
 {
   public:
