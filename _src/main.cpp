@@ -110,7 +110,7 @@ class U64
     }
 };
 
-// #define u64 U64
+#define u64 U64
 
 int main(int argc, char* argv[])
 {
