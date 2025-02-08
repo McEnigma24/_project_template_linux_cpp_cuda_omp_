@@ -81,7 +81,7 @@ struct UTILS
 
     struct str
     {
-        static std::vector<std::string> split_string(const std::string &input,
+        static std::vector<std::string> split_string(const std::string& input,
                                                      char delimiter)
         {
             std::vector<std::string> result;
@@ -95,7 +95,7 @@ struct UTILS
 
             return result;
         }
-        static std::string to_lower_case(const std::string &input)
+        static std::string to_lower_case(const std::string& input)
         {
             std::string result;
             result.reserve(input.size());
@@ -112,22 +112,22 @@ struct UTILS
     struct vec
     {
         template <typename T>
-        static void print_on_by_one(const std::vector<T> &vec)
+        static void print_on_by_one(const std::vector<T>& vec)
         {
-            for (auto &v : vec)
+            for (auto& v : vec)
             {
                 cout << v << "\n";
             }
         }
 
         template <typename T>
-        static bool contains(const T &value, const std::vector<T> &vec)
+        static bool contains(const T& value, const std::vector<T>& vec)
         {
             return std::find(vec.begin(), vec.end(), value) != vec.end();
         }
 
         template <typename T>
-        static void remove_by_value(const T &value, std::vector<T> &vec)
+        static void remove_by_value(const T& value, std::vector<T>& vec)
         {
             auto it = std::find(vec.begin(), vec.end(), value);
 
@@ -138,3 +138,258 @@ struct UTILS
         }
     };
 };
+
+#define OPERATION_COUNTER
+#define OPERATION_COUNTER_SHOW_LOG
+
+#ifdef OPERATION_COUNTER
+
+#ifdef OPERATION_COUNTER_SHOW_LOG
+#define OP_C_SHOW_LOG_LINE(...) __VA_ARGS__
+#else
+#define OP_C_SHOW_LOG_LINE(...)
+#endif
+
+template <typename T> class Operation_Counter
+{
+    T value;
+
+  public:
+    static uint64_t counter_add;
+    static uint64_t counter_sub;
+    static uint64_t counter_multi;
+    static uint64_t counter_dev;
+    static uint64_t counter_mod;
+
+    Operation_Counter(const T& v) : value(v)
+    {
+        OP_C_SHOW_LOG_LINE(line("constructor"));
+    }
+    Operation_Counter(Operation_Counter&& v) : value(v.value)
+    {
+        OP_C_SHOW_LOG_LINE(line("move constructor"));
+    }
+    Operation_Counter(const Operation_Counter& other) : value(other.value)
+    {
+        OP_C_SHOW_LOG_LINE(line("copy constructor"));
+    }
+    Operation_Counter& operator=(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator="));
+        value = other_value;
+        return *this;
+    }
+    Operation_Counter& operator=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator="));
+        value = other.value;
+        return *this;
+    }
+
+    Operation_Counter operator+(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator+"));
+
+        counter_add++;
+        return value + other.value;
+    }
+    Operation_Counter& operator+=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator+="));
+
+        counter_add++;
+        value += other.value;
+        return *this;
+    }
+    Operation_Counter operator+(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator+"));
+
+        counter_add++;
+        return value + other_value;
+    }
+    Operation_Counter& operator+=(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator+="));
+
+        counter_add++;
+        value += other_value;
+        return *this;
+    }
+    Operation_Counter& operator++()
+    {
+        OP_C_SHOW_LOG_LINE(line("operator++ pre"));
+
+        counter_add++;
+        value++;
+        return *this;
+    }
+    Operation_Counter operator++(int)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator++ post"));
+
+        counter_add++;
+        Operation_Counter previous_value = *this;
+        value++;
+        return previous_value;
+    }
+
+    Operation_Counter operator-(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator-"));
+
+        counter_sub++;
+        return value - other.value;
+    }
+    Operation_Counter& operator-=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator-="));
+
+        counter_sub++;
+        value -= other.value;
+        return *this;
+    }
+    Operation_Counter operator-(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator-"));
+
+        counter_sub++;
+        return value - other_value;
+    }
+    Operation_Counter& operator-=(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator-="));
+
+        counter_sub++;
+        value -= other_value;
+        return *this;
+    }
+    Operation_Counter& operator--()
+    {
+        OP_C_SHOW_LOG_LINE(line("operator-- pre"));
+
+        counter_sub++;
+        value--;
+        return *this;
+    }
+    Operation_Counter operator--(int)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator-- post"));
+
+        counter_sub++;
+        Operation_Counter previous_value = *this;
+        value--;
+        return previous_value;
+    }
+
+    Operation_Counter operator*(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator*"));
+
+        counter_multi++;
+        return value * other.value;
+    }
+    Operation_Counter& operator*=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator*="));
+
+        counter_multi++;
+        value *= other.value;
+        return *this;
+    }
+    Operation_Counter operator*(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator*"));
+
+        counter_multi++;
+        return value * other_value;
+    }
+    Operation_Counter& operator*=(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator*="));
+
+        counter_multi++;
+        value *= other_value;
+        return *this;
+    }
+
+    Operation_Counter operator/(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator/"));
+
+        counter_dev++;
+        return value / other.value;
+    }
+    Operation_Counter& operator/=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator/="));
+
+        counter_dev++;
+        value /= other.value;
+        return *this;
+    }
+    Operation_Counter operator/(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator/"));
+
+        counter_dev++;
+        return value / other_value;
+    }
+    Operation_Counter& operator/=(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator/="));
+
+        counter_dev++;
+        value /= other_value;
+        return *this;
+    }
+
+    Operation_Counter operator%(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator%"));
+
+        counter_mod++;
+        return value % other.value;
+    }
+    Operation_Counter& operator%=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator%="));
+
+        counter_mod++;
+        value %= other.value;
+        return *this;
+    }
+    Operation_Counter operator%(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator%"));
+
+        counter_mod++;
+        return value % other_value;
+    }
+    Operation_Counter& operator%=(const T& other_value)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator%="));
+
+        counter_mod++;
+        value %= other_value;
+        return *this;
+    }
+
+    friend std::ostream& operator<<(std::ostream& stream,
+                                    const Operation_Counter& obj)
+    {
+        // line("stream"));
+        stream << obj.value;
+        return stream;
+    }
+};
+
+uint64_t Operation_Counter::counter_add;
+uint64_t Operation_Counter::counter_sub;
+uint64_t Operation_Counter::counter_multi;
+uint64_t Operation_Counter::counter_dev;
+uint64_t Operation_Counter::counter_mod;
+
+#define u64 Operation_Counter<u64>
+#define float Operation_Counter<float>
+#endif
