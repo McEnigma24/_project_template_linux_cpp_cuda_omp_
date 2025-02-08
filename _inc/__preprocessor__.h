@@ -384,11 +384,11 @@ template <typename T> class Operation_Counter
     }
 };
 
-uint64_t Operation_Counter::counter_add;
-uint64_t Operation_Counter::counter_sub;
-uint64_t Operation_Counter::counter_multi;
-uint64_t Operation_Counter::counter_dev;
-uint64_t Operation_Counter::counter_mod;
+template <typename T> uint64_t Operation_Counter::counter_add = 0;
+template <typename T> uint64_t Operation_Counter::counter_sub = 0;
+template <typename T> uint64_t Operation_Counter::counter_multi = 0;
+template <typename T> uint64_t Operation_Counter::counter_dev = 0;
+template <typename T> uint64_t Operation_Counter::counter_mod = 0;
 
 #define u64 Operation_Counter<u64>
 #define float Operation_Counter<float>
