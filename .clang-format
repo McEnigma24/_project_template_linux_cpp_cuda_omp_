@@ -4,6 +4,7 @@
 ---
 Language:        Cpp
 
+PointerAlignment: Left
 IndentWidth:     4
 NamespaceIndentation: All
 AllowShortFunctionsOnASingleLine: All
