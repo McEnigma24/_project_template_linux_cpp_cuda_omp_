@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <string>
 #include <thread>
+#include <time.h>
 #include <vector>
 
 using namespace std;

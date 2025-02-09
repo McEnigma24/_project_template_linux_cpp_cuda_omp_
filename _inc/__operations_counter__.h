@@ -16,6 +16,20 @@ struct Global_Operation_Counter
     static uint64_t counter_multi;
     static uint64_t counter_dev;
     static uint64_t counter_mod;
+    static uint64_t counter_comparisons;
+
+    static void show()
+    {
+        nline;
+        line("< Operation Counters >");
+        var(counter_add);
+        var(counter_sub);
+        var(counter_multi);
+        var(counter_dev);
+        var(counter_mod);
+        var(counter_comparisons);
+        nline;
+    }
 };
 
 template <typename T>
@@ -24,6 +38,7 @@ class Operation_Counter
     T value;
 
 public:
+    Operation_Counter() { memset(this, 0, sizeof(*this)); }
     Operation_Counter(const T& v) : value(v)
     {
         OP_C_SHOW_LOG_LINE(line("constructor"));
@@ -47,6 +62,49 @@ public:
         OP_C_SHOW_LOG_LINE(line("operator="));
         value = other.value;
         return *this;
+    }
+
+    bool operator==(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator=="));
+
+        Global_Operation_Counter::counter_comparisons++;
+        return value == other.value;
+    }
+    bool operator!=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator!="));
+
+        Global_Operation_Counter::counter_comparisons++;
+        return value != other.value;
+    }
+    bool operator>(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator>"));
+
+        Global_Operation_Counter::counter_comparisons++;
+        return value > other.value;
+    }
+    bool operator<(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator<"));
+
+        Global_Operation_Counter::counter_comparisons++;
+        return value < other.value;
+    }
+    bool operator>=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator>="));
+
+        Global_Operation_Counter::counter_comparisons++;
+        return value >= other.value;
+    }
+    bool operator<=(const Operation_Counter& other)
+    {
+        OP_C_SHOW_LOG_LINE(line("operator<="));
+
+        Global_Operation_Counter::counter_comparisons++;
+        return value <= other.value;
     }
 
     Operation_Counter operator+(const Operation_Counter& other)
@@ -261,4 +319,5 @@ public:
 
 #define float Operation_Counter<float>
 #define double Operation_Counter<double>
+
 #endif // OPERATION_COUNTER
