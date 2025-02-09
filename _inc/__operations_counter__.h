@@ -2,6 +2,7 @@
 #include "__preprocessor__.h"
 
 #ifdef OPERATION_COUNTER
+
 #ifdef OPERATION_COUNTER_SHOW_LOG
 #define OP_C_SHOW_LOG_LINE(...) __VA_ARGS__
 #else

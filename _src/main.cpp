@@ -6,7 +6,7 @@ int main(int argc, char* argv[])
     UTILS::clear_terminal();
     time_stamp("It just works");
 
-    if (false)
+    if (true)
     {
         u64 a = 100;
         u64 b = 10;
