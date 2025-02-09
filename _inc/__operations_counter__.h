@@ -131,14 +131,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator+"));
 
-        Global_Operation_Counter::counter_add++;
+        Global_Operation_Counter::counters.add();
         return value + other.value;
     }
     Operation_Counter& operator+=(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator+="));
 
-        Global_Operation_Counter::counter_add++;
+        Global_Operation_Counter::counters.add();
         value += other.value;
         return *this;
     }
@@ -146,14 +146,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator+"));
 
-        Global_Operation_Counter::counter_add++;
+        Global_Operation_Counter::counters.add();
         return value + other_value;
     }
     Operation_Counter& operator+=(const T& other_value)
     {
         OP_C_SHOW_LOG_LINE(line("operator+="));
 
-        Global_Operation_Counter::counter_add++;
+        Global_Operation_Counter::counters.add();
         value += other_value;
         return *this;
     }
@@ -161,7 +161,7 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator++ pre"));
 
-        Global_Operation_Counter::counter_add++;
+        Global_Operation_Counter::counters.add();
         value++;
         return *this;
     }
@@ -169,7 +169,7 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator++ post"));
 
-        Global_Operation_Counter::counter_add++;
+        Global_Operation_Counter::counters.add();
         Operation_Counter previous_value = *this;
         value++;
         return previous_value;
@@ -179,14 +179,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator-"));
 
-        Global_Operation_Counter::counter_sub++;
+        Global_Operation_Counter::counters.sub();
         return value - other.value;
     }
     Operation_Counter& operator-=(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator-="));
 
-        Global_Operation_Counter::counter_sub++;
+        Global_Operation_Counter::counters.sub();
         value -= other.value;
         return *this;
     }
@@ -194,14 +194,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator-"));
 
-        Global_Operation_Counter::counter_sub++;
+        Global_Operation_Counter::counters.sub();
         return value - other_value;
     }
     Operation_Counter& operator-=(const T& other_value)
     {
         OP_C_SHOW_LOG_LINE(line("operator-="));
 
-        Global_Operation_Counter::counter_sub++;
+        Global_Operation_Counter::counters.sub();
         value -= other_value;
         return *this;
     }
@@ -209,7 +209,7 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator-- pre"));
 
-        Global_Operation_Counter::counter_sub++;
+        Global_Operation_Counter::counters.sub();
         value--;
         return *this;
     }
@@ -217,7 +217,7 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator-- post"));
 
-        Global_Operation_Counter::counter_sub++;
+        Global_Operation_Counter::counters.sub();
         Operation_Counter previous_value = *this;
         value--;
         return previous_value;
@@ -227,14 +227,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator*"));
 
-        Global_Operation_Counter::counter_multi++;
+        Global_Operation_Counter::counters.multi();
         return value * other.value;
     }
     Operation_Counter& operator*=(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator*="));
 
-        Global_Operation_Counter::counter_multi++;
+        Global_Operation_Counter::counters.multi();
         value *= other.value;
         return *this;
     }
@@ -242,14 +242,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator*"));
 
-        Global_Operation_Counter::counter_multi++;
+        Global_Operation_Counter::counters.multi();
         return value * other_value;
     }
     Operation_Counter& operator*=(const T& other_value)
     {
         OP_C_SHOW_LOG_LINE(line("operator*="));
 
-        Global_Operation_Counter::counter_multi++;
+        Global_Operation_Counter::counters.multi();
         value *= other_value;
         return *this;
     }
@@ -258,14 +258,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator/"));
 
-        Global_Operation_Counter::counter_dev++;
+        Global_Operation_Counter::counters.dev();
         return value / other.value;
     }
     Operation_Counter& operator/=(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator/="));
 
-        Global_Operation_Counter::counter_dev++;
+        Global_Operation_Counter::counters.dev();
         value /= other.value;
         return *this;
     }
@@ -273,14 +273,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator/"));
 
-        Global_Operation_Counter::counter_dev++;
+        Global_Operation_Counter::counters.dev();
         return value / other_value;
     }
     Operation_Counter& operator/=(const T& other_value)
     {
         OP_C_SHOW_LOG_LINE(line("operator/="));
 
-        Global_Operation_Counter::counter_dev++;
+        Global_Operation_Counter::counters.dev();
         value /= other_value;
         return *this;
     }
@@ -289,14 +289,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator%"));
 
-        Global_Operation_Counter::counter_mod++;
+        Global_Operation_Counter::counters.mod();
         return value % other.value;
     }
     Operation_Counter& operator%=(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator%="));
 
-        Global_Operation_Counter::counter_mod++;
+        Global_Operation_Counter::counters.mod();
         value %= other.value;
         return *this;
     }
@@ -304,14 +304,14 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator%"));
 
-        Global_Operation_Counter::counter_mod++;
+        Global_Operation_Counter::counters.mod();
         return value % other_value;
     }
     Operation_Counter& operator%=(const T& other_value)
     {
         OP_C_SHOW_LOG_LINE(line("operator%="));
 
-        Global_Operation_Counter::counter_mod++;
+        Global_Operation_Counter::counters.mod();
         value %= other_value;
         return *this;
     }
