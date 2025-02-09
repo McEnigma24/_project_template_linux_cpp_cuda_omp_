@@ -305,7 +305,7 @@ public:
     }
 };
 
-// comment out what you don't want to count
+// comment out what you don't want to count //
 
 #define i8 Operation_Counter<i8>
 #define i16 Operation_Counter<i16>
