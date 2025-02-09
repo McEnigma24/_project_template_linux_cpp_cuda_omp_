@@ -154,7 +154,8 @@ struct UTILS
 #define OP_C_SHOW_LOG_LINE(...)
 #endif
 
-template <typename T> class Operation_Counter
+template <typename T>
+class Operation_Counter
 {
     T value;
 
@@ -390,11 +391,16 @@ template <typename T> class Operation_Counter
 
 // można liczyć jeszcze porównania
 
-template <typename T> uint64_t Operation_Counter::counter_add = 0;
-template <typename T> uint64_t Operation_Counter::counter_sub = 0;
-template <typename T> uint64_t Operation_Counter::counter_multi = 0;
-template <typename T> uint64_t Operation_Counter::counter_dev = 0;
-template <typename T> uint64_t Operation_Counter::counter_mod = 0;
+template <typename T>
+uint64_t Operation_Counter::counter_add = 0;
+template <typename T>
+uint64_t Operation_Counter::counter_sub = 0;
+template <typename T>
+uint64_t Operation_Counter::counter_multi = 0;
+template <typename T>
+uint64_t Operation_Counter::counter_dev = 0;
+template <typename T>
+uint64_t Operation_Counter::counter_mod = 0;
 
 #define u64 Operation_Counter<u64>
 #define float Operation_Counter<float>
