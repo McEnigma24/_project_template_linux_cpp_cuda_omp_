@@ -88,42 +88,42 @@ public:
     {
         OP_C_SHOW_LOG_LINE(line("operator=="));
 
-        Global_Operation_Counter::counter_comparisons++;
+        Global_Operation_Counter::counters.comparison();
         return value == other.value;
     }
     bool operator!=(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator!="));
 
-        Global_Operation_Counter::counter_comparisons++;
+        Global_Operation_Counter::counters.comparison();
         return value != other.value;
     }
     bool operator>(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator>"));
 
-        Global_Operation_Counter::counter_comparisons++;
+        Global_Operation_Counter::counters.comparison();
         return value > other.value;
     }
     bool operator<(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator<"));
 
-        Global_Operation_Counter::counter_comparisons++;
+        Global_Operation_Counter::counters.comparison();
         return value < other.value;
     }
     bool operator>=(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator>="));
 
-        Global_Operation_Counter::counter_comparisons++;
+        Global_Operation_Counter::counters.comparison();
         return value >= other.value;
     }
     bool operator<=(const Operation_Counter& other)
     {
         OP_C_SHOW_LOG_LINE(line("operator<="));
 
-        Global_Operation_Counter::counter_comparisons++;
+        Global_Operation_Counter::counters.comparison();
         return value <= other.value;
     }
 
