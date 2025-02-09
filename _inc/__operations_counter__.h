@@ -1,5 +1,6 @@
 #pragma once
 #include "__preprocessor__.h"
+#include <atomic>
 
 #ifdef OPERATION_COUNTER
 
@@ -13,12 +14,12 @@ struct Global_Operation_Counter
 {
     class Counters
     {
-        uint64_t counter_add;
-        uint64_t counter_sub;
-        uint64_t counter_multi;
-        uint64_t counter_dev;
-        uint64_t counter_mod;
-        uint64_t counter_comparisons;
+        atomic<uint64_t> counter_add;
+        atomic<uint64_t> counter_sub;
+        atomic<uint64_t> counter_multi;
+        atomic<uint64_t> counter_dev;
+        atomic<uint64_t> counter_mod;
+        atomic<uint64_t> counter_comparisons;
 
     public:
         Counters() { memset(this, 0, sizeof(*this)); }
