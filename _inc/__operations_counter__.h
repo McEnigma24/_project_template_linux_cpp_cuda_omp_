@@ -6,6 +6,7 @@
 #define OP_C_SHOW_LOG_LINE(...) __VA_ARGS__
 #else
 #define OP_C_SHOW_LOG_LINE(...)
+
 #endif
 
 struct Global_Operation_Counter
