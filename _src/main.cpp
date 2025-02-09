@@ -1,5 +1,5 @@
 #include "__preprocessor__.h"
-#include "time_stamp.h"
+#include "__time_stamp__.h"
 
 int main(int argc, char* argv[])
 {
@@ -26,7 +26,7 @@ int main(int argc, char* argv[])
 
     if (true)
     {
-        OP_C_SHOW_LOG_LINE(float a = 10.f);
+        float a = 10.f;
         var(a);
         a += 10.f;
         var(a);
@@ -36,6 +36,15 @@ int main(int argc, char* argv[])
         var(a);
         a *= 18.f;
         var(a);
+    }
+
+    if (true)
+    {
+        var(Global_Operation_Counter::counter_add);
+        var(Global_Operation_Counter::counter_sub);
+        var(Global_Operation_Counter::counter_multi);
+        var(Global_Operation_Counter::counter_dev);
+        var(Global_Operation_Counter::counter_mod);
     }
 
     return 0;
