@@ -6,8 +6,7 @@
 #define OP_C_SHOW_LOG_LINE(...) __VA_ARGS__
 #else
 #define OP_C_SHOW_LOG_LINE(...)
-
-#endif
+#endif // OPERATION_COUNTER_SHOW_LOG
 
 struct Global_Operation_Counter
 {
@@ -261,4 +260,4 @@ public:
 
 #define float Operation_Counter<float>
 #define double Operation_Counter<double>
-#endif
+#endif // OPERATION_COUNTER
