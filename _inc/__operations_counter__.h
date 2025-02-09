@@ -18,7 +18,7 @@ struct Global_Operation_Counter
     static uint64_t counter_mod;
     static uint64_t counter_comparisons;
 
-    static void show()
+    ~Global_Operation_Counter()
     {
         nline;
         line("< Operation Counters >");

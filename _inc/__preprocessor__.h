@@ -150,4 +150,4 @@ struct UTILS
 
 #include "__operations_counter__.h"
 
-// Global_Operation_Counter::show();
+Global_Operation_Counter::show();
