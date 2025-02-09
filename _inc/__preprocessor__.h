@@ -159,7 +159,7 @@ class Operation_Counter
 {
     T value;
 
-  public:
+public:
     static uint64_t counter_add;
     static uint64_t counter_sub;
     static uint64_t counter_multi;
