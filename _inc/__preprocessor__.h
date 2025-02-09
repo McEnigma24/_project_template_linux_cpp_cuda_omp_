@@ -28,6 +28,11 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
 
+typedef int8_t i8;
+typedef int16_t i16;
+typedef int32_t i32;
+typedef int64_t i64;
+
 #define null nullptr
 #define pow2(x) ((x) * (x))
 #define base_0(x) (x - 1)
@@ -143,7 +148,6 @@ struct UTILS
 #define OPERATION_COUNTER_SHOW_LOG
 
 #ifdef OPERATION_COUNTER
-
 #ifdef OPERATION_COUNTER_SHOW_LOG
 #define OP_C_SHOW_LOG_LINE(...) __VA_ARGS__
 #else
@@ -383,6 +387,8 @@ template <typename T> class Operation_Counter
         return stream;
     }
 };
+
+// można liczyć jeszcze porównania
 
 template <typename T> uint64_t Operation_Counter::counter_add = 0;
 template <typename T> uint64_t Operation_Counter::counter_sub = 0;

@@ -4,6 +4,7 @@
 ---
 Language:        Cpp
 
+AlwaysBreakTemplateDeclarations: True
 PointerAlignment: Left
 IndentWidth:     4
 NamespaceIndentation: All
