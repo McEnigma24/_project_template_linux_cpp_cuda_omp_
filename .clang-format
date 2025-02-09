@@ -4,6 +4,7 @@
 ---
 Language:        Cpp
 
+CommentPragmas:  '^#endif'
 AccessModifierOffset: -4
 AlwaysBreakTemplateDeclarations: true
 PointerAlignment: Left
