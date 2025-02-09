@@ -149,3 +149,5 @@ struct UTILS
 #define OPERATION_COUNTER_SHOW_LOG
 
 #include "__operations_counter__.h"
+
+// Global_Operation_Counter::show();
