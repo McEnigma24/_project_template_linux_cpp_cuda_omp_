@@ -11,23 +11,43 @@
 
 struct Global_Operation_Counter
 {
-    static uint64_t counter_add;
-    static uint64_t counter_sub;
-    static uint64_t counter_multi;
-    static uint64_t counter_dev;
-    static uint64_t counter_mod;
-    static uint64_t counter_comparisons;
+    class Counters
+    {
+        uint64_t counter_add;
+        uint64_t counter_sub;
+        uint64_t counter_multi;
+        uint64_t counter_dev;
+        uint64_t counter_mod;
+        uint64_t counter_comparisons;
 
-    ~Global_Operation_Counter()
+    public:
+        Counters() { memset(this, 0, sizeof(*this)); }
+        void show()
+        {
+            var(counter_add);
+            var(counter_sub);
+            var(counter_multi);
+            var(counter_dev);
+            var(counter_mod);
+            var(counter_comparisons);
+        }
+
+        void add() { counter_add++; }
+        void sub() { counter_sub++; }
+        void multi() { counter_multi++; }
+        void dev() { counter_dev++; }
+        void mod() { counter_mod++; }
+        void comparison() { counter_comparisons++; }
+    };
+    static Counters counters;
+
+    static void reset() { memset(&counters, 0, sizeof(counters)); }
+
+    static void show()
     {
         nline;
         line("< Operation Counters >");
-        var(counter_add);
-        var(counter_sub);
-        var(counter_multi);
-        var(counter_dev);
-        var(counter_mod);
-        var(counter_comparisons);
+        counters.show();
         nline;
     }
 };
