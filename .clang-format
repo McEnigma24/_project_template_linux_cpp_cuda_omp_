@@ -4,6 +4,7 @@
 ---
 Language:        Cpp
 
+AccessModifierOffset: -2
 AlwaysBreakTemplateDeclarations: true
 PointerAlignment: Left
 IndentWidth:     4
