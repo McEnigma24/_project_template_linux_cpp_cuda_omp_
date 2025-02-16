@@ -13,8 +13,16 @@ aux_source_directory(_src TEST_SOURCES)
 list(FILTER TEST_SOURCES EXCLUDE REGEX ".*main\\.cpp")
 aux_source_directory(_test TEST_SOURCES)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -march=native")
+# COMPILER FLAGS #
+
+# https://docs.oracle.com/cd/E19957-01/806-3572/Rev.html
+# https://caiorss.github.io/C-Cpp-Notes/compiler-flags-options.html
+# https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wfatal-errors
+
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -g -Wall -Wextra")                                                             # to see everything
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -g -Wfatal-errors -Werror=uninitialized -Werror=init-self -Werror=reorder")    # for normal coding
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -O3 -march=native -w")                                                         # for release
+
 
 set(EXE_NAME "out.exe")
 add_executable(${EXE_NAME} ${SOURCES})
