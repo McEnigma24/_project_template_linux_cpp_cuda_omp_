@@ -7,9 +7,12 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-include_directories(_inc)
+include_directories(_inc _inc/base)
 aux_source_directory(_src SOURCES)
+aux_source_directory(_src/base SOURCES)
+
 aux_source_directory(_src TEST_SOURCES)
+aux_source_directory(_src/base TEST_SOURCES)
 list(FILTER TEST_SOURCES EXCLUDE REGEX ".*main\\.cpp")
 aux_source_directory(_test TEST_SOURCES)
 
