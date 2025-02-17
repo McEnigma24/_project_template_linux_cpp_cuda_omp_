@@ -27,22 +27,37 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -g -Wfatal-errors -Werror=unini
 # set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -O3 -march=native -w")                                                         # for release
 
 
-set(EXE_NAME "out.exe")
-add_executable(${EXE_NAME} ${SOURCES})
-target_compile_definitions(${EXE_NAME} PRIVATE LINUX)
-set_target_properties(${EXE_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+option(BUILD_LIBRARY "Build library instead of library executable" OFF)
 
-# Włączenie testów
-enable_testing()
+if(BUILD_LIBRARY)
+    set(EXE_NAME "bmp")
+    add_library(${EXE_NAME} SHARED ${SOURCES})
+    target_compile_definitions(${EXE_NAME} PRIVATE LINUX)
+    set_target_properties(${EXE_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+else()
+    set(EXE_NAME "bmp.exe")
+    add_executable(${EXE_NAME} ${SOURCES})
+    target_compile_definitions(${EXE_NAME} PRIVATE LINUX BUILD_EXECUTABLE)
+    set_target_properties(${EXE_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
+endif()
 
-# Pobieranie jako submoduł
-add_subdirectory(external/googletest)
+option(CTEST_ACTIVE "Testing is active" OFF)
 
-# Dodanie testów
-set(TEST_EXE_NAME "test.texe")  # Nazwa binarki testowej
-add_executable(${TEST_EXE_NAME} ${TEST_SOURCES})
-target_link_libraries(${TEST_EXE_NAME} PRIVATE gtest_main)
+if(CTEST_ACTIVE)
 
-# Rejestracja testów
-include(GoogleTest)
-gtest_discover_tests(${TEST_EXE_NAME})
+    # Włączenie testów
+    enable_testing()
+
+    # Pobieranie jako submoduł
+    add_subdirectory(external/googletest)
+
+    # Dodanie testów
+    set(TEST_EXE_NAME "test.texe")  # Nazwa binarki testowej
+    add_executable(${TEST_EXE_NAME} ${TEST_SOURCES})
+    target_link_libraries(${TEST_EXE_NAME} PRIVATE gtest_main)
+
+    # Rejestracja testów
+    include(GoogleTest)
+    gtest_discover_tests(${TEST_EXE_NAME})
+
+endif()

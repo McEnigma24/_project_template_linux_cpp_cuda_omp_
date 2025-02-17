@@ -1,6 +1,7 @@
 #include "__preprocessor__.h"
 #include "__time_stamp__.h"
 
+#ifdef BUILD_EXECUTABLE
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
@@ -9,3 +10,4 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+#endif
