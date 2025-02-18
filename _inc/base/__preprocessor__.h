@@ -43,6 +43,8 @@ typedef int64_t i64;
 #define member_assign(a, b, member) a.member = b.member;
 #define THIS_OTHER(x) this->x = other.x;
 
+#define call_print(x) x.print(#x);
+
 #define add_endl(string, how_many)                                                                                     \
     for (u16 i{}; i < how_many; i++)                                                                                   \
         string += "\n";
@@ -72,10 +74,9 @@ typedef int64_t i64;
 #define delay_input std::this_thread::sleep_for(std::chrono::milliseconds(50));
 #define sleep(x) std::this_thread::sleep_for(std::chrono::milliseconds(x));
 
-struct UTILS
+namespace CORE
 {
-
-    static void clear_terminal()
+    void clear_terminal()
     {
 #ifdef _WIN32
         int status = std::system("cls"); // Windows
@@ -83,6 +84,8 @@ struct UTILS
         int status = std::system("clear"); // Linux / macOS
 #endif
     }
+
+    u64 convert_2d_to_1d(u64 x, u64 y, u64 WIDTH) { return (y * WIDTH) + x; }
 
     struct str
     {
@@ -140,10 +143,10 @@ struct UTILS
             }
         }
     };
-};
+}; // namespace CORE
 
-// #define OPERATION_COUNTER
-// #define OPERATION_COUNTER_SHOW_LOG
+    // #define OPERATION_COUNTER
+    // #define OPERATION_COUNTER_SHOW_LOG
 
 #include "__operations_counter__.h"
 
