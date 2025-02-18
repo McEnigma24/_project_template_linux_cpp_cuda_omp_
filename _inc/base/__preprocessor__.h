@@ -76,76 +76,29 @@ typedef int64_t i64;
 
 namespace CORE
 {
-    void clear_terminal()
+    void clear_terminal();
+    u64 convert_2d_to_1d(u64 x, u64 y, u64 WIDTH);
+
+    namespace str
     {
-#ifdef _WIN32
-        int status = std::system("cls"); // Windows
-#else
-        int status = std::system("clear"); // Linux / macOS
-#endif
-    }
+        std::vector<std::string> split_string(const std::string& input, char delimiter);
+        std::string to_lower_case(const std::string& input);
+    }; // namespace str
 
-    u64 convert_2d_to_1d(u64 x, u64 y, u64 WIDTH) { return (y * WIDTH) + x; }
-
-    struct str
-    {
-        static std::vector<std::string> split_string(const std::string& input, char delimiter)
-        {
-            std::vector<std::string> result;
-            std::string segment;
-            std::istringstream stream(input);
-
-            while (std::getline(stream, segment, delimiter))
-            {
-                result.push_back(segment);
-            }
-
-            return result;
-        }
-        static std::string to_lower_case(const std::string& input)
-        {
-            std::string result;
-            result.reserve(input.size());
-            for (char c : input)
-            {
-                result += static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
-            }
-
-            return result;
-        }
-    };
-
-    struct vec
+    namespace vec
     {
         template <typename T>
-        static void print_on_by_one(const std::vector<T>& vec)
-        {
-            for (auto& v : vec)
-            {
-                cout << v << "\n";
-            }
-        }
+        void print_on_by_one(const std::vector<T>& vec);
 
         template <typename T>
-        static bool contains(const T& value, const std::vector<T>& vec)
-        {
-            return std::find(vec.begin(), vec.end(), value) != vec.end();
-        }
+        bool contains(const T& value, const std::vector<T>& vec);
 
         template <typename T>
-        static void remove_by_value(const T& value, std::vector<T>& vec)
-        {
-            auto it = std::find(vec.begin(), vec.end(), value);
+        void remove_by_value(const T& value, std::vector<T>& vec);
+    }; // namespace vec
+};     // namespace CORE
 
-            if (it != vec.end())
-            {
-                vec.erase(it);
-            }
-        }
-    };
-}; // namespace CORE
-
-    // #define OPERATION_COUNTER
+#define OPERATION_COUNTER_ACTIVE
     // #define OPERATION_COUNTER_SHOW_LOG
 
 #include "__operations_counter__.h"

@@ -2,10 +2,7 @@
 #include "__preprocessor__.h"
 #include <atomic>
 
-namespace CORE
-{
-
-#ifdef OPERATION_COUNTER
+#ifdef OPERATION_COUNTER_ACTIVE
 
 #ifdef OPERATION_COUNTER_SHOW_LOG
 #define OP_C_SHOW_LOG_LINE(...) __VA_ARGS__
@@ -13,6 +10,8 @@ namespace CORE
 #define OP_C_SHOW_LOG_LINE(...)
 #endif // OPERATION_COUNTER_SHOW_LOG
 
+namespace CORE
+{
     struct Global_Operation_Counter
     {
         class Counters
@@ -25,35 +24,20 @@ namespace CORE
             atomic<uint64_t> counter_comparisons;
 
         public:
-            Counters() { memset(this, 0, sizeof(*this)); }
-            void show()
-            {
-                var(counter_add);
-                var(counter_sub);
-                var(counter_multi);
-                var(counter_dev);
-                var(counter_mod);
-                var(counter_comparisons);
-            }
+            Counters();
+            void show();
 
-            void add() { counter_add++; }
-            void sub() { counter_sub++; }
-            void multi() { counter_multi++; }
-            void dev() { counter_dev++; }
-            void mod() { counter_mod++; }
-            void comparison() { counter_comparisons++; }
+            void add();
+            void sub();
+            void multi();
+            void dev();
+            void mod();
+            void comparison();
         };
         static Counters counters;
 
-        static void reset() { memset(&counters, 0, sizeof(counters)); }
-
-        static void show()
-        {
-            nline;
-            line("< Operation Counters >");
-            counters.show();
-            nline;
-        }
+        static void reset();
+        static void show();
     };
 
     template <typename T>
@@ -321,8 +305,9 @@ namespace CORE
             return stream;
         }
     };
+} // namespace CORE
 
-    // comment out what you don't want to count //
+// comment out what you don't want to count //
 
 #define i8 Operation_Counter<i8>
 #define i16 Operation_Counter<i16>
@@ -337,6 +322,4 @@ namespace CORE
 #define float Operation_Counter<float>
 #define double Operation_Counter<double>
 
-#endif // OPERATION_COUNTER
-
-} // namespace CORE
+#endif // OPERATION_COUNTER_ACTIVE

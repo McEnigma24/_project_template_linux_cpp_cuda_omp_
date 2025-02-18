@@ -5,8 +5,11 @@
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
-    UTILS::clear_terminal();
+    CORE::clear_terminal();
     time_stamp("It just works");
+
+    CORE::str::split_string("Hello, World!", ' ');
+    var(CORE::str::to_lower_case("Hello, World!"));
 
     return 0;
 }
