@@ -85,6 +85,9 @@ typedef int64_t i64;
 #define ASSERT_ER_IF_NULL(x)                                                                                                                         \
     if (x == null) FATAL_ERROR(#x)
 
+#define check_nan(x)                                                                                                                                 \
+    if (std::isnan(x)) { FATAL_ERROR("found it"); }
+
 #define SAFETY_CHECK(x) x;
 
 #define delay_input std::this_thread::sleep_for(std::chrono::milliseconds(50));
