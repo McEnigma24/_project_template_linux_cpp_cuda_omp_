@@ -36,6 +36,7 @@ typedef int64_t i64;
 
 #define null nullptr
 #define pow2(x) ((x) * (x))
+#define pow3(x) ((x) * (x) * (x))
 #define base_0(x) (x - 1)
 
 #define c_init(x) x(_##x)
