@@ -6,6 +6,7 @@ dir_input="input"
 dir_build="build"
 dir_exe="exe"
 dir_log="log"
+dir_externals="external"
 
 SCRIPT="./run.sh"
 LOG="../output/start.log"
@@ -81,6 +82,7 @@ install_packages()
         libgdk-pixbuf2.0-dev
         libgtk-3-dev
         libavfilter-dev
+        libnuma-dev
     )
 
     # Aktualizacja listy pakietów
@@ -110,9 +112,44 @@ env_prep()
     fi
 
     chmod +x scripts/*.sh
+}
+create_my_libraries()
+{
+    LIBS=(
+        # BMP
+        # Randoms
+        # Timers
+    )
 
-    clear
-    cd scripts
+    check_if_library_is_present_make_it_if_its_not()
+    {
+        LIB_NAME="$1"
+
+        PATH_ROOT_DIR="${dir_externals}/${LIB_NAME}_lib"
+        PATH_LIB="${PATH_ROOT_DIR}/build/lib${LIB_NAME}.so"
+
+        if [[ ! -f "${PATH_LIB}" ]]; then
+        {
+            cd $PATH_ROOT_DIR
+            {
+                rm -rf build/*
+                ./start.sh
+            }
+            silent_come_back
+
+            if [[ ! -f "${PATH_LIB}" ]]; then
+            {
+                echo "Unable to compile ${LIB_NAME}";
+                exit
+            }
+            fi
+        }
+        fi
+    }
+
+    for LIB in "${LIBS[@]}"; do
+        check_if_library_is_present_make_it_if_its_not "$LIB"
+    done
 }
 
 #####################   START   #####################
@@ -121,8 +158,11 @@ install_packages
 
 env_prep
 
+create_my_libraries
+
 timer_start
 {
+    cd scripts
     script -q -c "$SCRIPT 2>&1" /dev/null | tee $LOG
 }
 timer_end
