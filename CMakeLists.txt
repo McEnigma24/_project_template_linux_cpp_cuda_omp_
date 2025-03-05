@@ -39,8 +39,7 @@ if(BUILD_LIBRARY)
     add_library(${TARGET_NAME} SHARED ${SOURCES})
     target_compile_definitions(${TARGET_NAME} PRIVATE LINUX)
     set_target_properties(${TARGET_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-    # target_link_libraries
-    # (
+    # target_link_libraries(${TARGET_NAME} PUBLIC 
     #     # ${LIBRARY_PATH_BMP}/libBMP.so
     # )
 else()
@@ -48,8 +47,7 @@ else()
     add_executable(${TARGET_NAME} ${SOURCES})
     target_compile_definitions(${TARGET_NAME} PRIVATE LINUX BUILD_EXECUTABLE)
     set_target_properties(${TARGET_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-    # target_link_libraries
-    # (
+    # target_link_libraries(${TARGET_NAME} PUBLIC 
     #     # ${LIBRARY_PATH_BMP}/libBMP.so
     # )
 endif()
