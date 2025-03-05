@@ -54,7 +54,7 @@ else()
     # )
 endif()
 
-option(CTEST_ACTIVE "Testing is active" OFF)
+option(CTEST_ACTIVE "Testing is active" ON)
 
 if(CTEST_ACTIVE)
 
