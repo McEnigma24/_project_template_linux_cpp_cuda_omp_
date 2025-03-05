@@ -154,9 +154,9 @@ create_my_libraries()
 
 #####################   START   #####################
 
-install_packages
-
 env_prep
+
+install_packages
 
 create_my_libraries
 
