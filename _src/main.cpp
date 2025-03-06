@@ -22,8 +22,8 @@ int main(int argc, char* argv[])
     int num = 123456789;
     double num2 = 1234567.89123;
 
-    std::cout << "Formatted integer: " << format_number(num) << std::endl;
-    std::cout << "Formatted float: " << format_number(num2) << std::endl;
+    cout << CORE::format_number(num) << endl;
+    cout << CORE::format_number(num2) << endl;
 
     return 0;
 }
