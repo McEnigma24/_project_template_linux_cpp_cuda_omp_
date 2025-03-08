@@ -5,6 +5,7 @@
 Language:        Cpp
 
 IndentPPDirectives: BeforeHash
+AlignConsecutiveMacros: true
 AllowShortBlocksOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: true
 ColumnLimit:     150
