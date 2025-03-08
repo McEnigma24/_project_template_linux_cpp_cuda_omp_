@@ -15,9 +15,9 @@ namespace TestNamespace
 {
     void namespaceFunction()
     {
-#ifdef GG_TEST
+#ifdef GG_TEST //
         std::cout << "Inside namespace function" << std::endl;
-#endif
+#endif //
     }
 } // namespace TestNamespace
 class TestClass
