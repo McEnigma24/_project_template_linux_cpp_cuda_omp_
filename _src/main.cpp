@@ -8,14 +8,9 @@ class test
 #ifdef BUILD_EXECUTABLE
 int main(int argc, char* argv[])
 {
-    srand(time(
-
-        NULL));
+    srand(time(NULL));
     // CORE::clear_terminal();
-    time_stamp("It "
-               "just "
-               "work"
-               "s");
+    time_stamp("It just works");
 
     CORE::str::split_string("H"
                             "e"
