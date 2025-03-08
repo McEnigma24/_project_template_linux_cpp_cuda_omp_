@@ -15,6 +15,11 @@ int main(int argc, char* argv[])
     CORE::str::split_string("Hello, World!", ' ');
     var(CORE::str::to_lower_case("Hello, World!"));
 
+
+
+
+    
+
     show_sizeof(test);
     show_sizeof_many(test, 100);
 
