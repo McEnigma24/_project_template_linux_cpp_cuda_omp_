@@ -29,6 +29,16 @@ clear_dir_nested() { cd $1; clear_dir "$2"; silent_come_back; }
 create_dir() { if [ ! -d $1 ]; then mkdir $1; fi; }
 create_dir_nested() { cd $1; create_dir "$2"; silent_come_back; }
 
+install_hook()
+{
+    DIR_SCRIPTS="scripts"
+    PATH_MY_HOOK="$DIR_SCRIPTS/formating_hook.sh"
+    PATH_GIT_HOOK=".git/hooks/pre-commit"
+
+    cp $PATH_MY_HOOK $PATH_GIT_HOOK && chmod +x $PATH_GIT_HOOK
+    chmod +x $PATH_GIT_HOOK
+}
+
 timer_start() { var_start=$(date +%s); }
 timer_end() { var_end=$(date +%s); }
 timer_print()
@@ -123,9 +133,7 @@ env_prep()
 create_my_libraries()
 {
     LIBS=(
-        # BMP
-        # Randoms
-        # Timers
+        CORE
     )
 
     check_if_library_is_present_make_it_if_its_not()
@@ -133,9 +141,9 @@ create_my_libraries()
         LIB_NAME="$1"
 
         PATH_ROOT_DIR="${dir_externals}/${LIB_NAME}_lib"
-        PATH_LIB="${PATH_ROOT_DIR}/build/lib${LIB_NAME}."
+        PATH_LIB="${PATH_ROOT_DIR}/build/lib${LIB_NAME}"
 
-        if [[ ! -f "${PATH_LIB}.a" && ! -f "${PATH_LIB}.so" ]]; then
+        if [[ ! (-f "${PATH_LIB}.a" || -f "${PATH_LIB}.so") ]]; then
         {
             cd $PATH_ROOT_DIR
             {
@@ -143,9 +151,9 @@ create_my_libraries()
             }
             silent_come_back
 
-            if [[ ! -f "${PATH_LIB}.a" && ! -f "${PATH_LIB}.so" ]]; then
+            if [[ ! (-f "${PATH_LIB}.a" || -f "${PATH_LIB}.so") ]]; then
             {
-                echo "Unable to compile ${LIB_NAME}";
+                echo -e "\n\n\n\nUnable to compile lib -> ${LIB_NAME}";
                 exit
             }
             fi
@@ -159,6 +167,8 @@ create_my_libraries()
 }
 
 #####################   START   #####################
+
+install_hook
 
 env_prep
 

@@ -7,11 +7,10 @@ if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-# set(LIBRARY_PATH_BMP ${CMAKE_CURRENT_SOURCE_DIR}/external/BMP_lib/build/)
+set(LIBRARY_PATH_CORE ${CMAKE_CURRENT_SOURCE_DIR}/external/CORE_lib/build/)
+link_directories(${LIBRARY_PATH_CORE})
 
-# link_directories(${LIBRARY_PATH_BMP})
-
-include_directories(_inc _inc/base) # external/BMP_lib/_inc
+include_directories(_inc external/CORE_lib/_inc)
 aux_source_directory(_src SOURCES)
 aux_source_directory(_src/base SOURCES)
 
@@ -41,9 +40,9 @@ if(BUILD_LIBRARY)
     add_library(${TARGET_NAME} SHARED ${SOURCES})
     target_compile_definitions(${TARGET_NAME} PRIVATE LINUX)
     set_target_properties(${TARGET_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-    # target_link_libraries(${TARGET_NAME} PUBLIC 
-    #     # ${LIBRARY_PATH_BMP}/libBMP.so
-    # )
+    target_link_libraries(${TARGET_NAME} PUBLIC 
+        ${LIBRARY_PATH_CORE}/libCORE.a
+    )
 else()
     message(WARNING "Building exe")
 
@@ -51,9 +50,9 @@ else()
     add_executable(${TARGET_NAME} ${SOURCES})
     target_compile_definitions(${TARGET_NAME} PRIVATE LINUX BUILD_EXECUTABLE)
     set_target_properties(${TARGET_NAME} PROPERTIES COMPILE_FLAGS "-m64" LINK_FLAGS "-m64")
-    # target_link_libraries(${TARGET_NAME} PUBLIC 
-    #     # ${LIBRARY_PATH_BMP}/libBMP.so
-    # )
+    target_link_libraries(${TARGET_NAME} PUBLIC 
+        ${LIBRARY_PATH_CORE}/libCORE.a
+    )
 endif()
 
 option(CTEST_ACTIVE "Testing is active" OFF)  # default value - could be overwritten by provided FLAG
