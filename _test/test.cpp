@@ -1,5 +1,5 @@
 #include "__preprocessor__.h"
-#include <gtest/gtest.h>
+#include <gtest/gtest.h> // must be first
 
 TEST(SampleTest, Sanity) { EXPECT_EQ(1, 1); }
 
