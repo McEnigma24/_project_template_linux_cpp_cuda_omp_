@@ -6,9 +6,9 @@
     std::cout << "\n"
 
 #ifdef CPU
-#define CPU_LINE (...) __VA_ARGS__
+    #define CPU_LINE (...) __VA_ARGS__
 #else
-#define CPU_LINE (...)
+    #define CPU_LINE (...)
 #endif
 
 namespace TestNamespace
