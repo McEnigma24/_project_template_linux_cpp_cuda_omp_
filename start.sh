@@ -72,18 +72,6 @@ install_packages()
         libstdc++-11-dev
         gcc-multilib
         g++-multilib
-        libssl-dev
-        libcairo2-dev
-        libx264-dev
-        libswscale-dev
-        libavcodec-dev
-        libavutil-dev
-        libavformat-dev
-        librsvg2-dev
-        libgdk-pixbuf2.0-dev
-        libgtk-3-dev
-        libavfilter-dev
-        libnuma-dev
     )
 
     # Aktualizacja listy pakietów
@@ -145,18 +133,17 @@ create_my_libraries()
         LIB_NAME="$1"
 
         PATH_ROOT_DIR="${dir_externals}/${LIB_NAME}_lib"
-        PATH_LIB="${PATH_ROOT_DIR}/build/lib${LIB_NAME}.so"
+        PATH_LIB="${PATH_ROOT_DIR}/build/lib${LIB_NAME}."
 
-        if [[ ! -f "${PATH_LIB}" ]]; then
+        if [[ ! -f "${PATH_LIB}.a" && ! -f "${PATH_LIB}.so" ]]; then
         {
             cd $PATH_ROOT_DIR
             {
-                rm -rf build/*
-                ./start.sh
+                ./start.sh -l
             }
             silent_come_back
 
-            if [[ ! -f "${PATH_LIB}" ]]; then
+            if [[ ! -f "${PATH_LIB}.a" && ! -f "${PATH_LIB}.so" ]]; then
             {
                 echo "Unable to compile ${LIB_NAME}";
                 exit
