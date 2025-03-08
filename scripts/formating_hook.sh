@@ -12,6 +12,7 @@ echo "Formatowanie zmienionych plików za pomocą ClangFormat..."
 for FILE in $FILES; do
     echo "$FILE"
     # clang-format -i "$FILE"        # Formatowanie pliku
+    echo "#$PWD"
     clang-format -i -style=file:"/external/CORE_lib" "$FILE"
     git add "$FILE"                # Ponowne dodanie do stage po formatowaniu
 done
