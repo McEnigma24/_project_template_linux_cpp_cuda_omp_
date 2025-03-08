@@ -1,7 +1,11 @@
-#include "__preprocessor__.h"
+// clang-format off
 #include <gtest/gtest.h> // must be first
+#include "__preprocessor__.h"
 
-TEST(SampleTest, Sanity) { EXPECT_EQ(1, 1); }
+TEST(SampleTest, Sanity)
+{
+    EXPECT_EQ(1, 1);
+}
 
 int main(int argc, char** argv)
 {
