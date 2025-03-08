@@ -23,8 +23,6 @@ using namespace std;
 #define linee(x) cout << x << ' ';
 #define nline cout << '\n';
 
-int my_sum(int a, int b);
-
 typedef uint8_t u8;
 typedef uint16_t u16;
 typedef uint32_t u32;
@@ -91,12 +89,25 @@ typedef int64_t i64;
     if (std::isnan(x)) { FATAL_ERROR("found it"); }
 
 #define SAFETY_CHECK(x) x;
+// #define SAFETY_CHECK(x) 
 
 #define delay_input std::this_thread::sleep_for(std::chrono::milliseconds(50));
 #define sleep(x) std::this_thread::sleep_for(std::chrono::milliseconds(x));
 
+#define time_stamp(x)                                                                                                  \
+    std::cout << "\nTIME_STAMP: " << setw(50) << left << x << right << " " << CORE::get_current_local_time() << " (+ " \
+              << CORE::calculate_time_difference() << ")\n";
+
+#define time_stamp_reset() CORE::calculate_time_difference();
+
+// #define time_stamp(x) 
+// #define time_stamp_reset(x) 
+
 namespace CORE
 {
+    std::string get_current_local_time();
+    std::string calculate_time_difference();
+
     void clear_terminal();
     u64 convert_2d_to_1d(u64 x, u64 y, u64 WIDTH);
 
@@ -159,23 +170,32 @@ namespace CORE
         std::string to_lower_case(const std::string& input);
     }; // namespace str
 
-    namespace vec
+    struct vec
     {
         template <typename T>
-        void print_on_by_one(const std::vector<T>& vec);
+        static void print_on_by_one(const std::vector<T>& vec)
+        {
+            for (auto& v : vec)
+            {
+                cout << v << "\n";
+            }
+        }
 
         template <typename T>
-        bool contains(const T& value, const std::vector<T>& vec);
+        static bool contains(const T& value, const std::vector<T>& vec)
+        {
+            return std::find(vec.begin(), vec.end(), value) != vec.end();
+        }
 
         template <typename T>
-        void remove_by_value(const T& value, std::vector<T>& vec);
+        static void remove_by_value(const T& value, std::vector<T>& vec)
+        {
+            auto it = std::find(vec.begin(), vec.end(), value);
+
+            if (it != vec.end())
+            {
+                vec.erase(it);
+            }
+        }
     }; // namespace vec
 };     // namespace CORE
-
-    // #define OPERATION_COUNTER_ACTIVE
-    // #define OPERATION_COUNTER_SHOW_LOG
-
-#include "__operations_counter__.h"
-
-// Global_Operation_Counter::show();
-// Global_Operation_Counter::reset();
