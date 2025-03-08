@@ -118,14 +118,14 @@ env_prep()
 
     if [[ "$CALLING_ARGUMENT" == *"-t"* ]]; then
     {
-        # clear_dir "$dir_build"
+        clear_dir "$dir_build"
         export FLAG_TESTING_ACTIVE="Yes"
     }
     fi
 
     if [[ "$CALLING_ARGUMENT" == *"-l"* ]]; then
     {
-        # clear_dir "$dir_build"
+        clear_dir "$dir_build"
         export FLAG_BUILDING_LIBRARY="Yes"
     }
     fi
