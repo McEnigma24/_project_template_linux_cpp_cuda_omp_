@@ -32,9 +32,11 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp -g -Wfatal-errors -Werror=unini
 
 set(CONST_TARGET_NAME "TEMPLATE")
 
-option(BUILD_LIBRARY "Build library instead of library executable" OFF)
+option(BUILD_LIBRARY "Build library instead of library executable" OFF) # default value - could be overwritten by provided FLAG
 
 if(BUILD_LIBRARY)
+    message(WARNING "Building library")
+    
     set(TARGET_NAME "${CONST_TARGET_NAME}")
     add_library(${TARGET_NAME} SHARED ${SOURCES})
     target_compile_definitions(${TARGET_NAME} PRIVATE LINUX)
@@ -43,6 +45,8 @@ if(BUILD_LIBRARY)
     #     # ${LIBRARY_PATH_BMP}/libBMP.so
     # )
 else()
+    message(WARNING "Building exe")
+
     set(TARGET_NAME "${CONST_TARGET_NAME}.exe")
     add_executable(${TARGET_NAME} ${SOURCES})
     target_compile_definitions(${TARGET_NAME} PRIVATE LINUX BUILD_EXECUTABLE)
@@ -52,10 +56,10 @@ else()
     # )
 endif()
 
-option(CTEST_ACTIVE "Testing is active" ON)
+option(CTEST_ACTIVE "Testing is active" OFF)  # default value - could be overwritten by provided FLAG
 
 if(CTEST_ACTIVE)
-
+    message(WARNING "TESTING...")
     # Włączenie testów
     enable_testing()
 

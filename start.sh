@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ✅ ❌
+
 var_start=""
 var_end=""
 dir_input="input"
@@ -29,14 +31,13 @@ create_dir_nested() { cd $1; create_dir "$2"; silent_come_back; }
 
 timer_start() { var_start=$(date +%s); }
 timer_end() { var_end=$(date +%s); }
-
 timer_print()
 {
     elapsed=$((var_end - var_start))
     hours=$((elapsed / 3600))
     minutes=$(( (elapsed % 3600) / 60 ))
     seconds=$((elapsed % 60))
-    printf "Program          - took: %02d:%02d:%02d\n" $hours $minutes $seconds
+    printf "\nProgram          - took: %02d:%02d:%02d\n" $hours $minutes $seconds
 }
 install_packages()
 {
@@ -107,8 +108,26 @@ env_prep()
     create_dir "$dir_log"
     create_dir "$dir_run_time_config"
 
+    # ONLY one is active at a time #  erase '-' to be able to to ex. -ltc
+
     if [[ "$CALLING_ARGUMENT" == *"-c"* ]]; then
+    {
         clear_dir "$dir_build"
+    }
+    fi
+
+    if [[ "$CALLING_ARGUMENT" == *"-t"* ]]; then
+    {
+        # clear_dir "$dir_build"
+        export FLAG_TESTING_ACTIVE="Yes"
+    }
+    fi
+
+    if [[ "$CALLING_ARGUMENT" == *"-l"* ]]; then
+    {
+        # clear_dir "$dir_build"
+        export FLAG_BUILDING_LIBRARY="Yes"
+    }
     fi
 
     chmod +x scripts/*.sh

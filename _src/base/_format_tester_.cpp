@@ -1,20 +1,28 @@
 #include <iostream>
 
 #define MACRO_ONE_LINE(x) std::cout << #x << " = " << x << "\n"
-#define MACRO_MULTI_LINE(x)                                                    \
-    std::cout << #x << " = " << x;                                             \
+#define MACRO_MULTI_LINE(x)                                                                                                                          \
+    std::cout << #x << " = " << x;                                                                                                                   \
     std::cout << "\n"
+
+#ifdef CPU
+#define CPU_LINE (...) __VA_ARGS__
+#else
+#define CPU_LINE (...)
+#endif
 
 namespace TestNamespace
 {
     void namespaceFunction()
     {
+#ifdef GG_TEST
         std::cout << "Inside namespace function" << std::endl;
+#endif
     }
 } // namespace TestNamespace
 class TestClass
 {
-  public:
+public:
     TestClass() { std::cout << "Constructor" << std::endl; }
 
     void memberFunction() { std::cout << "Member function" << std::endl; }
@@ -58,14 +66,8 @@ int main_test()
 
     TestEnum e = Value1;
 
-    if (e == Value1)
-    {
-        std::cout << "Enum is Value1" << std::endl;
-    }
-    else
-    {
-        std::cout << "Enum is not Value1" << std::endl;
-    }
+    if (e == Value1) { std::cout << "Enum is Value1" << std::endl; }
+    else { std::cout << "Enum is not Value1" << std::endl; }
 
     for (int i = 0; i < 5; ++i)
     {
@@ -81,7 +83,7 @@ int main_test()
     {
         throw std::runtime_error("Exception");
     }
-    catch (const std::exception &ex)
+    catch (const std::exception& ex)
     {
         std::cout << "Caught exception: " << ex.what() << std::endl;
     }

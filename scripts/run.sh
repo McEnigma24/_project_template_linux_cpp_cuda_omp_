@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ✅ ❌
+
 DIR_ROOT=$(dirname "$(pwd)")
 DIR_BUILD="build"
 DIR_LOG="log"
@@ -12,8 +14,15 @@ PATH_CLEANING_CORE_DUMP="$DIR_SCRIPTS/clear_core_dump.sh"
 clear_dir() { if [ -d $1 ]; then rm -rf $1; fi; mkdir $1; }
 run_and_collect()
 {
-    total_files=$(ls -1 $DIR_TARGET/* | wc -l)
+    total_files=$(ls -1 $DIR_TARGET/* 2>/dev/null | wc -l)
     current_file=1
+
+    if [[ "$total_files" -eq 0 ]]; then
+    {
+        echo "❌ NO exe to run"
+        exit 1
+    }
+    fi
 
     for exe in $DIR_TARGET/*; do
     {

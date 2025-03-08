@@ -4,6 +4,7 @@
 ---
 Language:        Cpp
 
+IndentPPDirectives: None
 AllowShortBlocksOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: true
 ColumnLimit:     150
