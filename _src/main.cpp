@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
   // CORE::clear_terminal();
   time_stamp("It just works");
 
-  CORE::str::split_string("Hello, World!");
+  CORE::str::split_string("Hello World!", ' ');
   var(CORE::str::to_lower_case("Hello, World!"));
 
   show_sizeof(test);
