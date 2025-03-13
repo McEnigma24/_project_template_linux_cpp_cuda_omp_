@@ -132,6 +132,9 @@ env_prep()
 }
 create_my_libraries()
 {
+    git submodule update --remote
+    git submodule update --init --recursive
+
     LIBS=(
         CORE
     )
