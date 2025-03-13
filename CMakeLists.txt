@@ -68,8 +68,10 @@ if(CTEST_ACTIVE)
     # Dodanie testów
     set(TEST_EXE_NAME "test.texe")  # Nazwa binarki testowej
     add_executable(${TEST_EXE_NAME} ${TEST_SOURCES})
-    target_link_libraries(${TEST_EXE_NAME} PRIVATE gtest_main)
-
+    target_link_libraries(${TEST_EXE_NAME} PRIVATE
+        gtest_main
+        ${LIBRARY_PATH_CORE}/libCORE.a
+    )
     # Rejestracja testów
     include(GoogleTest)
     gtest_discover_tests(${TEST_EXE_NAME})
