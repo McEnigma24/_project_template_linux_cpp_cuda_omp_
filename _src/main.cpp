@@ -9,7 +9,7 @@ class test
 int main(int argc, char* argv[])
 {
     srand(time(NULL));
-    // CORE::clear_terminal();
+    // CORE::clear_terminal(); // tests will NOT be VISIBLE with this line
     time_stamp("It just works");
 
     CORE::str::split_string("Hello World!", ' ');
