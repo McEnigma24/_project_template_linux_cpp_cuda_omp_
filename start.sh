@@ -2,13 +2,16 @@
 
 # ✅ ❌
 
+source config.sh
+
 var_start=""
 var_end=""
-dir_input="input"
-dir_build="build"
-dir_exe="exe"
-dir_log="log"
-dir_externals="external"
+
+DIR_INPUT="input"
+DIR_BUILD="build"
+DIR_EXE="exe"
+DIR_LOG="log"
+DIR_EXTERNALS="external"
 
 SCRIPT="./run.sh"
 LOG="../output/start.log"
@@ -72,17 +75,17 @@ install_packages()
     }
 
     # Lista pakietów do zainstalowania
-    PACKAGES=(
-        tar
-        make
-        cmake
-        build-essential
-        gcc
-        g++
-        libstdc++-11-dev
-        gcc-multilib
-        g++-multilib
-    )
+    # PACKAGES=(
+    #     tar
+    #     make
+    #     cmake
+    #     build-essential
+    #     gcc
+    #     g++
+    #     libstdc++-11-dev
+    #     gcc-multilib
+    #     g++-multilib
+    # )
 
     # Aktualizacja listy pakietów
     sudo apt update -y > /dev/null 2>&1 && sudo apt upgrade -y > /dev/null 2>&1
@@ -100,30 +103,30 @@ install_packages()
 }
 env_prep()
 {
-    create_dir "$dir_input"
-    create_dir "$dir_build"
-    create_dir "$dir_exe"
-    create_dir "$dir_log"
+    create_dir "$DIR_INPUT"
+    create_dir "$DIR_BUILD"
+    create_dir "$DIR_EXE"
+    create_dir "$DIR_LOG"
     create_dir "$dir_run_time_config"
 
     # ONLY one is active at a time #  erase '-' to be able to to ex. -ltc
 
     if [[ "$CALLING_ARGUMENT" == *"-c"* ]]; then
     {
-        clear_dir "$dir_build"
+        clear_dir "$DIR_BUILD"
     }
     fi
 
     if [[ "$CALLING_ARGUMENT" == *"-t"* ]]; then
     {
-        clear_dir "$dir_build"
+        clear_dir "$DIR_BUILD"
         export FLAG_TESTING_ACTIVE="Yes"
     }
     fi
 
     if [[ "$CALLING_ARGUMENT" == *"-l"* ]]; then
     {
-        clear_dir "$dir_build"
+        clear_dir "$DIR_BUILD"
         export FLAG_BUILDING_LIBRARY="Yes"
     }
     fi
@@ -135,15 +138,15 @@ create_my_libraries()
     git submodule update --remote
     git submodule update --init --recursive
 
-    LIBS=(
-        CORE
-    )
+    # LIBS=(
+    #     CORE
+    # )
 
     check_if_library_is_present_make_it_if_its_not()
     {
         LIB_NAME="$1"
 
-        PATH_ROOT_DIR="${dir_externals}/${LIB_NAME}_lib"
+        PATH_ROOT_DIR="${DIR_EXTERNALS}/${LIB_NAME}_lib"
         PATH_LIB="${PATH_ROOT_DIR}/build/lib${LIB_NAME}"
 
         if [[ ! (-f "${PATH_LIB}.a" || -f "${PATH_LIB}.so") ]]; then
