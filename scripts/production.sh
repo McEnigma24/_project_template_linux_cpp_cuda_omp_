@@ -1,20 +1,11 @@
 #!/bin/bash
 
-# ✅ ❌
-
-TEST_FLAG="$1"
-DIR_ROOT=$(dirname "$(pwd)")
-DIR_BUILD="build"
-DIR_LOG="log"
-DIR_TARGET="exe"
-
 remove_single_file() { [ -f "$1" ] && rm "$1"; }
-clear_dir() { if [ -d $1 ]; then rm -rf $1; fi; mkdir $1; }
-clear_dir_with_extension() { if ls $1/*$2 1> /dev/null 2>&1; then rm -f $1/*$2; fi }
+clear_dir_only_specific_extension() { if ls $1/*$2 1> /dev/null 2>&1; then rm -f $1/*$2; fi }
 
-clean_env() { cd $DIR_ROOT; echo -e "\nBuild (1/5) - Cleaning env"; clear_dir "$DIR_TARGET"; clear_dir_with_extension "$DIR_BUILD" ".exe"; }
-prep_env()  { cd $DIR_ROOT; echo -e "\nBuild (2/5) - Preparing env"; }
-build_all()
+function clean_env() { cd $DIR_ROOT; echo -e "\nBuild (1/5) - Cleaning env"; clear_dir "$DIR_TARGET"; clear_dir_only_specific_extension "$DIR_BUILD" ".exe"; }
+function prep_env()  { cd $DIR_ROOT; echo -e "\nBuild (2/5) - Preparing env"; }
+function build_all()
 {
     cd $DIR_ROOT; echo -e "\nBuild (3/5) - Building";
 
@@ -41,7 +32,7 @@ build_all()
         exit
     fi
 }
-run_tests()
+function run_tests()
 {
     cd $DIR_ROOT; echo -ne "\nBuild (4/5) - Testing"; cd $DIR_BUILD;
 
@@ -56,7 +47,7 @@ run_tests()
     }
     fi
 }
-copy_exe()
+function copy_exe()
 {
     cd $DIR_ROOT; echo -ne "\nBuild (5/5) - Copying to exe";
     

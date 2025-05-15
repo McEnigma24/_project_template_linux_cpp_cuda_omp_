@@ -1,38 +1,18 @@
 #!/bin/bash
 
-# ✅ ❌
+# THIS one works the same way #
+# . config 
+source config
 
-source config.sh
 
-var_start=""
-var_end=""
+# # # # # # # # # # # # # # # #
 
-DIR_INPUT="input"
-DIR_BUILD="build"
-DIR_EXE="exe"
-DIR_LOG="log"
-DIR_EXTERNALS="external"
-
+var_start=""; var_end="";
 SCRIPT="./run.sh"
 LOG="../output/start.log"
+PATH_DONE_install="${DIR_RUN_TIME_CONFIG}/DONE_installed.txt"
 
-CALLING_ARGUMENT="$1"
-
-dir_run_time_config="run_time_config"
-path_DONE_installed="${dir_run_time_config}/DONE_installed.txt"
-
-silent_come_back() { cd - > /dev/null; }
-
-clear_file() { if [ -f $1 ]; then rm -rf $1; fi; }
-clear_file_nested() { cd $1; clear_file "$2"; silent_come_back; }
-
-clear_dir() { if [ -d $1 ]; then rm -rf $1; fi; mkdir $1; }
-clear_dir_nested() { cd $1; clear_dir "$2"; silent_come_back; }
-
-create_dir() { if [ ! -d $1 ]; then mkdir $1; fi; }
-create_dir_nested() { cd $1; create_dir "$2"; silent_come_back; }
-
-install_hook()
+function install_hook()
 {
     DIR_SCRIPTS="scripts"
     PATH_MY_HOOK="$DIR_SCRIPTS/formating_hook.sh"
@@ -41,9 +21,8 @@ install_hook()
     cp $PATH_MY_HOOK $PATH_GIT_HOOK && chmod +x $PATH_GIT_HOOK
     chmod +x $PATH_GIT_HOOK
 }
-
-timer_start() { var_start=$(date +%s); }
-timer_end() { var_end=$(date +%s); }
+function timer_start() { var_start=$(date +%s); }
+function timer_end() { var_end=$(date +%s); }
 timer_print()
 {
     elapsed=$((var_end - var_start))
@@ -52,9 +31,11 @@ timer_print()
     seconds=$((elapsed % 60))
     printf "\nProgram          - took: %02d:%02d:%02d\n" $hours $minutes $seconds
 }
-install_packages()
+function install_packages()
 {
-    if [ -f $path_DONE_installed ]; then return; fi
+    if [ -f $PATH_DONE_install ]; then return; fi
+
+    clear_file "$PATH_LAST_ARCH_MARKER"
 
     # Funkcja sprawdzająca czy pakiet jest zainstalowany
     check_and_install()
@@ -74,19 +55,6 @@ install_packages()
         fi
     }
 
-    # Lista pakietów do zainstalowania
-    # PACKAGES=(
-    #     tar
-    #     make
-    #     cmake
-    #     build-essential
-    #     gcc
-    #     g++
-    #     libstdc++-11-dev
-    #     gcc-multilib
-    #     g++-multilib
-    # )
-
     # Aktualizacja listy pakietów
     sudo apt update -y > /dev/null 2>&1 && sudo apt upgrade -y > /dev/null 2>&1
 
@@ -95,52 +63,65 @@ install_packages()
         check_and_install "$PACKAGE"
     done
 
-
     echo -ne "\n\n"
     echo "Instalation completed"
-    echo "DONE" > $path_DONE_installed
+    echo "DONE" > $PATH_DONE_install
     echo -ne "\n\n"
 }
-env_prep()
+function env_prep()
 {
     create_dir "$DIR_INPUT"
     create_dir "$DIR_BUILD"
-    create_dir "$DIR_EXE"
+    create_dir "$DIR_TARGET"
     create_dir "$DIR_LOG"
-    create_dir "$dir_run_time_config"
-
-    # ONLY one is active at a time #  erase '-' to be able to to ex. -ltc
-
-    if [[ "$CALLING_ARGUMENT" == *"-c"* ]]; then
-    {
-        clear_dir "$DIR_BUILD"
-    }
-    fi
-
-    if [[ "$CALLING_ARGUMENT" == *"-t"* ]]; then
-    {
-        clear_dir "$DIR_BUILD"
-        export FLAG_TESTING_ACTIVE="Yes"
-    }
-    fi
-
-    if [[ "$CALLING_ARGUMENT" == *"-l"* ]]; then
-    {
-        clear_dir "$DIR_BUILD"
-        export FLAG_BUILDING_LIBRARY="Yes"
-    }
-    fi
+    create_dir "$DIR_RUN_TIME_CONFIG"
 
     chmod +x scripts/*.sh
+
+    # 1. Pętla getopts
+    while getopts "ctl" opt; do
+    case "$opt" in
+        c)
+            # just clean the env #       single makes exe -> ct cleans test, cl cleans lib
+            {
+                clear_dir "$DIR_BUILD"
+            }
+        ;;
+        t)
+            # Testing #
+            {
+                MARKER="TEST"
+                [ "$( cat "$PATH_LAST_ARCH_MARKER" )" != "$MARKER" ] && clear_dir "$DIR_BUILD" && echo "$MARKER" > $PATH_LAST_ARCH_MARKER
+
+                export FLAG_TESTING_ACTIVE="Yes"
+            }
+            break
+        ;;
+        l)
+            # Lib generation #
+            {
+                MARKER="LIB"
+                [ "$( cat "$PATH_LAST_ARCH_MARKER" )" != "$MARKER" ] && clear_dir "$DIR_BUILD" && echo "$MARKER" > $PATH_LAST_ARCH_MARKER
+
+                export FLAG_BUILDING_LIBRARY="Yes"
+            }
+            break
+        ;;
+        \?)
+        echo "Error: $0 getopts switch -$OPTARG" >&2
+        exit 1
+        ;;
+    esac
+    done
+
+    # Usuń przetworzone opcje z listy argumentów #
+    shift $((OPTIND -1))
+    echo "Pozostałe argumenty: $@"
 }
-create_my_libraries()
+function create_my_libraries()
 {
     git submodule update --remote
     git submodule update --init --recursive
-
-    # LIBS=(
-    #     CORE
-    # )
 
     check_if_library_is_present_make_it_if_its_not()
     {
@@ -176,7 +157,7 @@ create_my_libraries()
 
 install_hook
 
-env_prep
+env_prep "$@"
 
 install_packages
 
