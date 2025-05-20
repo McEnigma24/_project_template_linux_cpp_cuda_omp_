@@ -40,7 +40,7 @@ TEST_F(MyFixture, FirstElementIsZero)
 }
 
 // 3) TEST_P + INSTANTIATE_TEST_CASE_P – testy parametryzowane
-typedef std::pair<int, bool> IntBoolPair;
+typedef std::tuple<int, bool> IntBoolPair;
 class ParityTest : public ::testing::TestWithParam<IntBoolPair>
 {
 };

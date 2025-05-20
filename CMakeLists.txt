@@ -12,10 +12,8 @@ link_directories(${LIBRARY_PATH_CORE})
 
 include_directories(_inc external/CORE_lib/_inc)
 aux_source_directory(_src SOURCES)
-aux_source_directory(_src/base SOURCES)
 
 aux_source_directory(_src TEST_SOURCES)
-aux_source_directory(_src/base TEST_SOURCES)
 list(FILTER TEST_SOURCES EXCLUDE REGEX ".*main\\.cpp")
 aux_source_directory(_test TEST_SOURCES)
 
