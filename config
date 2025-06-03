@@ -1,7 +1,7 @@
 # ✅ ❌ #
 
 set -eo pipefail
-set -x
+# set -x
 
 PACKAGES=(
     tar
