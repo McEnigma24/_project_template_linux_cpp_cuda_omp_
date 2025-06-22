@@ -13,6 +13,8 @@ PACKAGES=(
     libstdc++-11-dev
     gcc-multilib
     g++-multilib
+    clang
+    libomp-dev
 )
 
 # Lista moich bibliotek #
