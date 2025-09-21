@@ -10,7 +10,7 @@ function build_all()
     cd $DIR_ROOT; echo -e "\nBuild (3/5) - Building";
 
     CMAKE_FLAGS=""
-
+    
     if [ "$FLAG_TESTING_ACTIVE" == "Yes" ]; then
     {
         CMAKE_FLAGS="$CMAKE_FLAGS -DCTEST_ACTIVE=ON"

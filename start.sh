@@ -1,5 +1,7 @@
 #!/bin/bash
 
+clear
+
 # THIS one works the same way #
 # . config 
 source config
@@ -73,10 +75,14 @@ function env_prep()
     create_dir "$DIR_INPUT"
     create_dir "$DIR_BUILD"
     create_dir "$DIR_TARGET"
+    create_dir "$DIR_EXTERNAL"
     create_dir "$DIR_LOG"
     create_dir "$DIR_RUN_TIME_CONFIG"
 
     chmod +x scripts/*.sh
+
+    clear_file "$DIR_BUILD/CMakeCache.txt" # nie dało się inaczej, bo co chwila Cachował zmienne BUILD_LIBRARY i CTEST_ACTIVE,
+                                           # nawet jeśli po zbudowaniu odtwarzałem je do poprzednich wartości
 
     # 1. Pętla getopts
     while getopts "ctl" opt; do
@@ -118,40 +124,6 @@ function env_prep()
     shift $((OPTIND -1))
     # echo "Pozostałe argumenty: $@"
 }
-function create_my_libraries()
-{
-    git submodule update --remote
-    git submodule update --init --recursive
-
-    check_if_library_is_present_make_it_if_its_not()
-    {
-        LIB_NAME="$1"
-
-        PATH_ROOT_DIR="${DIR_EXTERNALS}/${LIB_NAME}_lib"
-        PATH_LIB="${PATH_ROOT_DIR}/build/lib${LIB_NAME}"
-
-        if [[ ! (-f "${PATH_LIB}.a" || -f "${PATH_LIB}.so") ]]; then
-        {
-            cd $PATH_ROOT_DIR
-            {
-                ./start.sh -l
-            }
-            silent_come_back
-
-            if [[ ! (-f "${PATH_LIB}.a" || -f "${PATH_LIB}.so") ]]; then
-            {
-                echo -e "\n\n\n\nUnable to compile lib -> ${LIB_NAME}";
-                exit
-            }
-            fi
-        }
-        fi
-    }
-
-    for LIB in "${LIBS[@]}"; do
-        check_if_library_is_present_make_it_if_its_not "$LIB"
-    done
-}
 
 #####################   START   #####################
 
@@ -160,8 +132,6 @@ install_hook
 env_prep "$@"
 
 install_packages
-
-create_my_libraries
 
 timer_start
 {

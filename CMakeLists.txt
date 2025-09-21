@@ -10,10 +10,7 @@ endif()
 # set(CMAKE_CXX_COMPILER g++)
 # set(CMAKE_CXX_COMPILER clang++)
 
-set(LIBRARY_PATH_CORE ${CMAKE_CURRENT_SOURCE_DIR}/external/CORE_lib/build/)
-link_directories(${LIBRARY_PATH_CORE})
-
-include_directories(_inc external/CORE_lib/_inc)
+include_directories(_inc)
 aux_source_directory(_src SOURCES)
 
 aux_source_directory(_src TEST_SOURCES)
@@ -42,13 +39,56 @@ set(COMPILE_FLAGS "${COMPILE_FLAGS} -m64")
 set(LINK_FLAGS "${LINK_FLAGS} -m64")
 
 
-set(ALL_LIBRARIES ${LIBRARY_PATH_CORE}/libCORE.a)
-# set(ALL_LIBRARIES ${ALL_LIBRARIES} ${LIBRARY_RANDOMS_LIB}/libRandoms.so)
+
+# 1 - core #
+set(_OLD_BUILD_LIBRARY "${BUILD_LIBRARY}")         # made to not let the sub-build overwrite the flag 
+set(_OLD_CTEST_ACTIVE "${CTEST_ACTIVE}")           # (problem only then Cmake uses flags of the same name)
+                                                   # with cmake 3.25 you could use block() { FetchContent_MakeAvailable } endblock()
+
+set(CTEST_ACTIVE "OFF")
+
+include(FetchContent)
+FetchContent_Declare(
+    core
+    GIT_REPOSITORY https://github.com/McEnigma24/CORE_lib.git
+    GIT_TAG        main # lub inny tag/commit
+)
+FetchContent_MakeAvailable(core)
+
+set(ALL_LIBRARIES ${ALL_LIBRARIES} core)
+include_directories(${core_SOURCE_DIR}/_inc)
+
+set(CTEST_ACTIVE "${_OLD_CTEST_ACTIVE}")
+set(BUILD_LIBRARY "${_OLD_BUILD_LIBRARY}")
+
+
+
+# EXAMPLE - ssd1306 #
+# include(FetchContent)
+# FetchContent_Declare(
+#     ssd1306
+#     GIT_REPOSITORY https://github.com/armlabs/ssd1306_linux.git
+#     GIT_TAG        master # lub inny tag/commit
+# )
+# FetchContent_MakeAvailable(ssd1306) # tutaj nie dzial, a normanie zbudowalby projekt, ale tutaj nie zrobi bo nie ma pliku CMakeLists.txt
+
+# include_directories(${ssd1306_SOURCE_DIR})
+
+# # Dodaj pliki źródłowe ręcznie
+# file(GLOB SSD1306_SOURCES
+#     ${ssd1306_SOURCE_DIR}/*.c
+# )
+
+# add_library(ssd1306 STATIC ${SSD1306_SOURCES})
+# target_include_directories(ssd1306 PUBLIC ${ssd1306_SOURCE_DIR})
+
+# set(ALL_LIBRARIES ${ALL_LIBRARIES} ssd1306) # dodajemy do glownego EXE
+
 
 
 set(CONST_TARGET_NAME "TEMPLATE")
 
-option(BUILD_LIBRARY "Build library instead of library executable" OFF) # default value - could be overwritten by provided FLAG
+option(BUILD_LIBRARY "Build library instead of executable" OFF) # default value - could be overwritten by provided FLAG
 
 if(BUILD_LIBRARY)
     message(WARNING "Building library")
@@ -75,15 +115,22 @@ if(CTEST_ACTIVE)
     # Włączenie testów
     enable_testing()
 
-    # Pobieranie jako submoduł
-    add_subdirectory(external/googletest)
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG        v1.14.0  # możesz zmienić tag na nowszy gdy będzie dostępny
+    )
+    # For Windows: Prevent overriding the parent project's compiler/linker settings
+    set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+    FetchContent_MakeAvailable(googletest)
 
     # Dodanie testów
-    set(TEST_EXE_NAME "test.texe")  # Nazwa binarki testowej
+    set(TEST_EXE_NAME "test.texe")
     add_executable(${TEST_EXE_NAME} ${TEST_SOURCES})
     target_link_libraries(${TEST_EXE_NAME} PRIVATE gtest_main ${ALL_LIBRARIES})
+    
     # Rejestracja testów
     include(GoogleTest)
     gtest_discover_tests(${TEST_EXE_NAME})
-
 endif()
