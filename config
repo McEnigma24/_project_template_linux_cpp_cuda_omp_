@@ -17,11 +17,6 @@ PACKAGES=(
     libomp-dev
 )
 
-# Lista moich bibliotek #
-LIBS=(
-    CORE
-)
-
 # echo "${BASH_SOURCE[0]}" # echo "$(dirname "${BASH_SOURCE[0]}")" # echo "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # can be called from any directory -> always gets the WORKING_DIR correct
 export DIR_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
