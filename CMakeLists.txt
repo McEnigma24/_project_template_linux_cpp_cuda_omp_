@@ -1,14 +1,18 @@
 cmake_minimum_required(VERSION 3.18)
-project(MyProject LANGUAGES CXX)
+project(MyProject LANGUAGES CXX CUDA)
+
+find_program(NVIDIA_SMI_EXECUTABLE nvidia-smi)
+find_package(CUDAToolkit REQUIRED)
+find_package(OpenMP REQUIRED)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CUDA_STANDARD 20)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif()
 
-# set(CMAKE_CXX_COMPILER g++)
-# set(CMAKE_CXX_COMPILER clang++)
+set(ALL_LIBRARIES ${ALL_LIBRARIES} PUBLIC OpenMP::OpenMP_CXX CUDA::cudart)
 
 include_directories(_inc)
 aux_source_directory(_src SOURCES)

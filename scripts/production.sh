@@ -22,6 +22,9 @@ function build_all()
     }
     fi
 
+    # mv .cpp .cu #
+    [ -f "$DIR_BUILD/_deps/core-src/_src/main.cpp" ] && mv "$DIR_BUILD/_deps/core-src/_src/main.cpp" "$DIR_BUILD/_deps/core-src/_src/main.cu" 2> /dev/null
+
     cmake -S . -B $DIR_BUILD $CMAKE_FLAGS;
     cmake --build $DIR_BUILD;
 
