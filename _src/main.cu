@@ -7,6 +7,12 @@ int main(int argc, char* argv[])
 {
     OpenMP_GPU_test();
 
+
+    
+
+
+
+
     return 0;
 }
 #endif
